@@ -27,8 +27,8 @@
         <TextBox x:Name="TextBox_LastName" Grid.Row="2" Margin="5" Height="30" VerticalAlignment="Bottom"/>
 
         <TextBlock Text="Дата рождения: " Grid.Row="3" Margin="5" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextBox_DateOfBirth" Grid.Row="3" Margin="5" Height="30" VerticalAlignment="Bottom"/>
-        
+        <DatePicker x:Name="DatePicker" Grid.Row="3" Margin="5" Height="30" VerticalAlignment="Bottom"/>
+
         <TextBlock Text="Номер телефона: " Grid.Row="4" Margin="5" VerticalAlignment="Top"/>
         <TextBox x:Name="TextBox_Phone" Grid.Row="4" Margin="5" Height="30" VerticalAlignment="Bottom"/>
      
