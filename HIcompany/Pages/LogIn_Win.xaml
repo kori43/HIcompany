@@ -5,22 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HIcompany"
         mc:Ignorable="d"
-        Title="Авторизация" Height="250" Width="350" Background="Wheat" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Авторизация" Height="250" Width="350" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
+            <RowDefinition Height="20*"/>
             <RowDefinition Height="30*"/>
             <RowDefinition Height="30*"/>
             <RowDefinition Height="30*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Width="350" Height="30" Grid.Row="0" Margin="5" Background="#FFB140" Grid.ColumnSpan="2">
-            <TextBlock Text="Авторизация" HorizontalAlignment="Center"/>
+        <StackPanel Width="350" Height="30" Grid.Row="0" Margin="5" Background="#679ED2">
+            <TextBlock Text="Авторизация" HorizontalAlignment="Center" Margin="0,5,0,0"/>
         </StackPanel>
 
-        <TextBlock Text="Login:" Grid.Row="1" Margin="35,5,5,5" VerticalAlignment="Top"/>
+        <TextBlock Text="Логин:" Grid.Row="1" Margin="35,5,5,5" VerticalAlignment="Top"/>
         <TextBox x:Name="TextBox_Login" Grid.Row="1" Width="280" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-        <TextBlock Text="Password:" Grid.Row="2" Margin="35,5,5,5" VerticalAlignment="Top"/>
+        <TextBlock Text="Пароль:" Grid.Row="2" Margin="35,5,5,5" VerticalAlignment="Top"/>
         <PasswordBox x:Name="PasswordBox_Password" Grid.Row="2" Width="280" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
 
         <Button x:Name="Btn_Entry" Content="Вход" Grid.Row="3" Width="75" Height="40" Margin="5" HorizontalAlignment="Left" Click="Btn_Entry_Click"/>
