@@ -1,7 +1,7 @@
-﻿using System.Windows;
-using System.Data.SqlClient;
-using HIcompany.db;
+﻿using HIcompany.db;
 using System.Data;
+using System.Data.SqlClient;
+using System.Windows;
 
 namespace HIcompany.Pages
 {
@@ -40,7 +40,7 @@ namespace HIcompany.Pages
             catch (Exception ex)
             {
                 MessageBox.Show("Ошибка: " + ex.Message);
-            }         
+            }
         }
 
         private void Btn_Clear_Click(object sender, RoutedEventArgs e)
@@ -52,7 +52,8 @@ namespace HIcompany.Pages
 
         private void Btn_Back_Click(object sender, RoutedEventArgs e)
         {
-            // todo возврат на окно оператора
+            Operator_Win operator_Win = new Operator_Win();
+            operator_Win.Show();
             this.Close();
         }
 
@@ -62,7 +63,7 @@ namespace HIcompany.Pages
             string lastName = TextBox_LastName.Text;
             DateTime dateofbirth = Convert.ToDateTime(DatePicker.Text);
             string phone = TextBox_Phone.Text;
-            
+
             SqlDataAdapter adapter = new SqlDataAdapter();
             DataTable table = new DataTable();
             string query = $"SELECT * from Clients WHERE Phone = '{phone}'";
@@ -72,7 +73,7 @@ namespace HIcompany.Pages
             adapter.SelectCommand = command;
             adapter.Fill(table);
 
-            if(table.Rows.Count > 0)
+            if (table.Rows.Count > 0)
             {
                 MessageBox.Show("Такой клиент уже существует!");
                 return true;

@@ -40,11 +40,13 @@ namespace HIcompany
                     switch (Role)
                     {
                         case 1:
-                            Console.WriteLine();
+                            Admin_Win admin = new Admin_Win();
+                            admin.Show();
                             this.Close();
                             break;
                         case 2:
-                            Console.WriteLine();
+                            Operator_Win operator_Win = new Operator_Win();
+                            operator_Win.Show();
                             this.Close();
                             break;
                         default:
@@ -68,14 +70,6 @@ namespace HIcompany
         {
             TextBox_Login.Clear();
             PasswordBox_Password.Clear();
-        }
-
-        private void Btn_Registration_Click(object sender, RoutedEventArgs e)
-        {
-            // todo убрать регистрацию, перенести в окно оператора
-            SignUp_Win signUpWin = new SignUp_Win();
-            signUpWin.Show();
-            this.Close();
         }
 
         private void Btn_Exit_Click(object sender, RoutedEventArgs e)
