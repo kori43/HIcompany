@@ -14,33 +14,38 @@ namespace HIcompany.Pages
         }
 
         private void Btn_Create_Click(object sender, RoutedEventArgs e)
-        {
-            if (CheckUser())
-                return;
+        {         
             string firstName = TextBox_FirstName.Text;
-            string lastName = TextBox_LastName.Text;
-            DateTime date = Convert.ToDateTime(DatePicker.Text);
+            string lastName = TextBox_LastName.Text;            
             string phone = TextBox_Phone.Text;
-            try
+            string strdate = DatePicker.Text;
+
+            if (firstName == "" || lastName == "" || phone == "" || strdate == "")
+                MessageBox.Show("Не удалось зарегистрировать клиента!");            
+            else
             {
-                string query = $"INSERT INTO Clients(FirstName, LastName, DateOfBirth, Phone) VALUES ('{firstName}', '{lastName}', '{date}', '{phone}')";
-                SqlCommand command = new SqlCommand(query, database.GetConnection());
-                database.OpenConnection();
-                if (firstName == "" || lastName == "" || date == null || phone == "")
-                    MessageBox.Show("Не удалось зарегистрировать клиента!");
-                else
+                if (CheckUser())
+                    return;
+                try
                 {
+                    DateTime date = Convert.ToDateTime(strdate);
+                    string query = $"INSERT INTO Clients(FirstName, LastName, DateOfBirth, Phone) VALUES ('{firstName}', '{lastName}', '{date}', '{phone}')";
+                    SqlCommand command = new SqlCommand(query, database.GetConnection());
+                    database.OpenConnection();
+
+
                     if (command.ExecuteNonQuery() == 1)
                         MessageBox.Show("Успешно!");
                     else
                         MessageBox.Show("Не удалось зарегистрировать клиента!");
+
+                    database.CloseConnection();
                 }
-                database.CloseConnection();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ошибка: " + ex.Message);
-            }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка: " + ex.Message);
+                }
+            }           
         }
 
         private void Btn_Clear_Click(object sender, RoutedEventArgs e)

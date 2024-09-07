@@ -24,7 +24,7 @@
         <PasswordBox x:Name="PasswordBox_Password" Grid.Row="2" Width="280" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
 
         <Button x:Name="Btn_Entry" Content="Вход" Grid.Row="3" Width="75" Height="40" Margin="5" HorizontalAlignment="Left" Click="Btn_Entry_Click"/>
-        <Button x:Name="Btn_Clear" Content="Очистить" Grid.Row="3" Width="75" Height="40" Margin="90,5,5,5" HorizontalAlignment="Left" Click="Btn_Clear_Click"/>
-        <Button x:Name="Btn_Exit" Content="Выход" Grid.Row="3" Width="75" Height="40" Margin="5,5,90,5" HorizontalAlignment="Right" Click="Btn_Exit_Click"/>
+        <Button x:Name="Btn_Clear" Content="Очистить" Grid.Row="3" Width="75" Height="40" Margin="5" HorizontalAlignment="Center" Click="Btn_Clear_Click"/>
+        <Button x:Name="Btn_Exit" Content="Выход" Grid.Row="3" Width="75" Height="40" Margin="5" HorizontalAlignment="Right" Click="Btn_Exit_Click"/>
     </Grid>
 </Window>

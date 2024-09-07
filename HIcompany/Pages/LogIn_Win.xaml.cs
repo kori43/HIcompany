@@ -17,52 +17,58 @@ namespace HIcompany
         {
             string username = TextBox_Login.Text;
             string userpassword = PasswordBox_Password.Password;
-
-            string query = "SELECT Id, Username, Role FROM Users WHERE Username = @Username AND Password = @Password";
-
-            database.OpenConnection();
-
-            SqlCommand command = new SqlCommand(query, database.GetConnection());
-
-            command.Parameters.AddWithValue("@Username", username);
-            command.Parameters.AddWithValue("@Password", userpassword);
-
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.Read())
-            {
-                int Id = reader.GetInt32(0);
-                string userName = reader.GetString(1);
-                int Role = reader.GetInt32(2);
-
-                try
-                {
-                    database.OpenConnection();
-                    switch (Role)
-                    {
-                        case 1:
-                            Admin_Win admin = new Admin_Win();
-                            admin.Show();
-                            this.Close();
-                            break;
-                        case 2:
-                            Operator_Win operator_Win = new Operator_Win();
-                            operator_Win.Show();
-                            this.Close();
-                            break;
-                        default:
-                            MessageBox.Show("Некорректная роль пользователя!");
-                            break;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Ошибка авторизации: " + ex.Message);
-                }
-            }
+            if(username == "")           
+                MessageBox.Show("Введите логин!");          
+            else if (userpassword == "")           
+                MessageBox.Show("Введите пароль!");         
             else
             {
-                MessageBox.Show("Такого аккаунта не существует!");
-                database.CloseConnection();
+                string query = "SELECT Id, Username, Role FROM Users WHERE Username = @Username AND Password = @Password";
+
+                database.OpenConnection();
+
+                SqlCommand command = new SqlCommand(query, database.GetConnection());
+
+                command.Parameters.AddWithValue("@Username", username);
+                command.Parameters.AddWithValue("@Password", userpassword);
+
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    int Id = reader.GetInt32(0);
+                    string userName = reader.GetString(1);
+                    int Role = reader.GetInt32(2);
+
+                    try
+                    {
+                        database.OpenConnection();
+                        switch (Role)
+                        {
+                            case 1:
+                                Admin_Win admin = new Admin_Win();
+                                admin.Show();
+                                this.Close();
+                                break;
+                            case 2:
+                                Operator_Win operator_Win = new Operator_Win();
+                                operator_Win.Show();
+                                this.Close();
+                                break;
+                            default:
+                                MessageBox.Show("Некорректная роль пользователя!");
+                                break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ошибка авторизации: " + ex.Message);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Такого аккаунта не существует!");
+                    database.CloseConnection();
+                }
             }
         }
 
