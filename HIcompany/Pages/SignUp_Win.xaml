@@ -5,8 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HIcompany.Pages"
         mc:Ignorable="d"
-        Title="SignUp_Win" Height="450" Width="800">
+        Title="Регистрация" Height="350" Width="350" Background="Wheat" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Width="350" Height="30" Grid.Row="0" Margin="5" Background="#FFB140" Grid.ColumnSpan="2">
+            <TextBlock Text="Регистрация" HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <TextBlock Text="Имя: " Grid.Row="1" Margin="5" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextBox_FirstName" Grid.Row="1" Margin="5" Height="30" VerticalAlignment="Bottom"/>
+
+        <TextBlock Text="Фамилия: " Grid.Row="2" Margin="5" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextBox_LastName" Grid.Row="2" Margin="5" Height="30" VerticalAlignment="Bottom"/>
+
+        <TextBlock Text="Дата рождения: " Grid.Row="3" Margin="5" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextBox_DateOfBirth" Grid.Row="3" Margin="5" Height="30" VerticalAlignment="Bottom"/>
+        
+        <TextBlock Text="Номер телефона: " Grid.Row="4" Margin="5" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextBox_Phone" Grid.Row="4" Margin="5" Height="30" VerticalAlignment="Bottom"/>
         
     </Grid>
 </Window>

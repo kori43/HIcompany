@@ -1,7 +1,7 @@
-﻿using System.Windows;
-using System.Data.SqlClient;
-using HIcompany.db;
+﻿using HIcompany.db;
 using HIcompany.Pages;
+using System.Data.SqlClient;
+using System.Windows;
 
 namespace HIcompany
 {
@@ -18,7 +18,7 @@ namespace HIcompany
             string username = TextBox_Login.Text;
             string userpassword = PasswordBox_Password.Password;
 
-            string query = "SELECT Id, Username, Role FROM Users WHERE Username = @Username AND Password";
+            string query = "SELECT Id, Username, Role FROM Users WHERE Username = @Username AND Password = @Password";
 
             database.OpenConnection();
 
@@ -28,7 +28,7 @@ namespace HIcompany
             command.Parameters.AddWithValue("@Password", userpassword);
 
             SqlDataReader reader = command.ExecuteReader();
-            if(reader.Read())
+            if (reader.Read())
             {
                 int Id = reader.GetInt32(0);
                 string userName = reader.GetString(1);
@@ -60,7 +60,8 @@ namespace HIcompany
             else
             {
                 MessageBox.Show("Такого аккаунта не существует!");
-            }            
+                database.CloseConnection();
+            }
         }
 
         private void Btn_Clear_Click(object sender, RoutedEventArgs e)
