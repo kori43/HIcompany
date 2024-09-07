@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HIcompany.Pages
 {
@@ -17,10 +18,14 @@ namespace HIcompany.Pages
         {         
             string firstName = TextBox_FirstName.Text;
             string lastName = TextBox_LastName.Text;            
-            string phone = TextBox_Phone.Text;
+            string strphone = TextBox_Phone.Text;
+            int phone = 0;
             string strdate = DatePicker.Text;
-
-            if (firstName == "" || lastName == "" || phone == "" || strdate == "")
+            bool b = true;
+            // todo доделать проверку на номер телефона
+            if(b = int.TryParse(strphone, out phone))
+                phone = int.Parse(strphone);
+            if (firstName == "" || lastName == "" || phone == 0 || strdate == "")
                 MessageBox.Show("Не удалось зарегистрировать клиента!");            
             else
             {

@@ -30,7 +30,7 @@
         <DatePicker x:Name="DatePicker" Grid.Row="3" Margin="5" Height="30" VerticalAlignment="Bottom"/>
 
         <TextBlock Text="Номер телефона: " Grid.Row="4" Margin="5" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextBox_Phone" Grid.Row="4" Margin="5" Height="30" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="TextBox_Phone" Grid.Row="4" Margin="5" Height="30" VerticalAlignment="Bottom" Text="0" UndoLimit="11"/>
      
         <Button x:Name="Btn_Create" Content="Создать" Grid.Row="5" Width="75" Height="40" Margin="5" HorizontalAlignment="Left" Click="Btn_Create_Click"/>
         <Button x:Name="Btn_Clear" Content="Очистить" Grid.Row="5" Width="75" Height="40" Margin="5" HorizontalAlignment="Center" Click="Btn_Clear_Click"/>
