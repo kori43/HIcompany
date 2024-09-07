@@ -72,6 +72,7 @@ namespace HIcompany
 
         private void Btn_Registration_Click(object sender, RoutedEventArgs e)
         {
+            // todo убрать регистрацию, перенести в окно оператора
             SignUp_Win signUpWin = new SignUp_Win();
             signUpWin.Show();
             this.Close();
