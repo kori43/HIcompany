@@ -24,7 +24,7 @@ namespace HIcompany.Pages
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            LoadClients();
         }
 
         private void LoadClients()
@@ -41,15 +41,19 @@ namespace HIcompany.Pages
 
                 while (reader.Read())
                 {
-                    Clients clients = new Clients
+                    Clients client = new Clients
                     {
                         Id = Convert.ToInt32(reader["Id"]),
                         FirstName = reader["FirstName"].ToString(),
-
+                        LastName = reader["LastName"].ToString(),
+                        DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]),
+                        Phone = reader["Phone"].ToString()
                     };
+                    clients.Add(client);
                 }
+                database.CloseConnection();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Ошибка при загрузке клиентов: " + ex.Message);
             }
@@ -69,12 +73,63 @@ namespace HIcompany.Pages
 
         private void Btn_Delete_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Clients selectedClient = DGClients.SelectedItem as Clients;
+                if (selectedClient == null)
+                {
+                    MessageBox.Show("Выберите клиента для удаления.", "Внимание");
+                    return;
+                }
+                int id = selectedClient.Id;
+                bool success = DeleteClient(id);
+                if (success)
+                {
+                    LoadClients();
+                    MessageBox.Show("Клиент успешно удален!");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при удалении записи");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при удалении записи: " + ex.Message);
+            }
+        }
 
+        private bool DeleteClient(int Id)
+        {
+            try
+            {
+                var selectedcClient = clients.FirstOrDefault(item => item.Id == Id);
+
+                clients.Remove(selectedcClient);
+
+                database.OpenConnection();
+
+                string query = "DELETE FROM Clients WHERE id = @id";
+
+                SqlCommand command = new SqlCommand(query, database.GetConnection());
+
+                command.Parameters.AddWithValue("@id", Id);
+                command.ExecuteNonQuery();
+
+                database.CloseConnection();
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при удалении записи: " + ex.Message);
+                return false;
+            }
         }
 
         private void Btn_Exit_Click(object sender, RoutedEventArgs e)
         {
-
-        }       
+            this.Close();
+        }
     }
 }
