@@ -17,14 +17,18 @@ namespace HIcompany.Pages
         private void Btn_Create_Click(object sender, RoutedEventArgs e)
         {         
             string firstName = TextBox_FirstName.Text;
-            string lastName = TextBox_LastName.Text;            
+            string lastName = TextBox_LastName.Text;
             string strphone = TextBox_Phone.Text;
-            int phone = 0;
             string strdate = DatePicker.Text;
-            bool b = true;
-            // todo доделать проверку на номер телефона
-            if(b = int.TryParse(strphone, out phone))
-                phone = int.Parse(strphone);
+            long phone = 0;
+            if (long.TryParse(strphone, out phone))
+            {
+                phone = long.Parse(strphone);
+            }
+            else
+            {
+                MessageBox.Show("Номер некорректен!");
+            }                
             if (firstName == "" || lastName == "" || phone == 0 || strdate == "")
                 MessageBox.Show("Не удалось зарегистрировать клиента!");            
             else
