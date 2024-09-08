@@ -5,7 +5,7 @@ namespace HIcompany.db
 {
     public class Database
     {
-        SqlConnection sqlConnection = new SqlConnection(@"Data Source=;Initial Catalog=HIcompany;Integrated Security=True");
+        SqlConnection sqlConnection = new SqlConnection(@"Initial Catalog=HIcompany;Integrated Security=True");
         public void OpenConnection()
         {
             if (sqlConnection.State == ConnectionState.Closed)

@@ -2,7 +2,6 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HIcompany.Pages
 {
@@ -22,13 +21,9 @@ namespace HIcompany.Pages
             string strdate = DatePicker.Text;
             long phone = 0;
             if (long.TryParse(strphone, out phone))
-            {
                 phone = long.Parse(strphone);
-            }
             else
-            {
-                MessageBox.Show("Номер некорректен!");
-            }                
+                MessageBox.Show("Номер некорректен!");              
             if (firstName == "" || lastName == "" || phone == 0 || strdate == "")
                 MessageBox.Show("Не удалось зарегистрировать клиента!");            
             else
@@ -41,7 +36,6 @@ namespace HIcompany.Pages
                     string query = $"INSERT INTO Clients(FirstName, LastName, DateOfBirth, Phone) VALUES ('{firstName}', '{lastName}', '{date}', '{phone}')";
                     SqlCommand command = new SqlCommand(query, database.GetConnection());
                     database.OpenConnection();
-
 
                     if (command.ExecuteNonQuery() == 1)
                         MessageBox.Show("Успешно!");
