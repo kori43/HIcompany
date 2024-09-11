@@ -16,7 +16,7 @@
             <RowDefinition Height="30*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Width="350" Height="30" Grid.Row="0" Margin="5" Background="#679ED2" Grid.ColumnSpan="2">
+        <StackPanel Height="30" Grid.Row="0" Margin="5" Background="#679ED2" Grid.ColumnSpan="2">
             <TextBlock Text="Регистрация" HorizontalAlignment="Center" Margin="0,5,0,0"/>
         </StackPanel>
 

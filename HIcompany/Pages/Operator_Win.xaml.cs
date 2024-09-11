@@ -10,12 +10,6 @@ namespace HIcompany.Pages
     {
         Database database = new Database();
         private ObservableCollection<Clients> clients = new ObservableCollection<Clients>();
-        enum ApplicationStatus : ushort
-        {
-            waiting = 0,
-            accept = 1,
-            cancel = 2,
-        }
         public Operator_Win()
         {
             InitializeComponent();
@@ -200,12 +194,14 @@ namespace HIcompany.Pages
 
         private void Applications_Click(object sender, RoutedEventArgs e)
         {
-
+            Applications_Win applications = new Applications_Win();
+            applications.Show();
+            this.Close();
         }
 
         private void Policies_Click(object sender, RoutedEventArgs e)
         {
-
+            // to do создать окно полисов
         }
     }
 }
