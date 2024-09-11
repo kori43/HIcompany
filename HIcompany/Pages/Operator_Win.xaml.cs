@@ -1,8 +1,8 @@
-﻿using System.Windows;
-using System.Data.SqlClient;
+﻿using HIcompany.Classes;
 using HIcompany.db;
 using System.Collections.ObjectModel;
-using HIcompany.Classes;
+using System.Data.SqlClient;
+using System.Windows;
 
 namespace HIcompany.Pages
 {
@@ -68,7 +68,73 @@ namespace HIcompany.Pages
 
         private void Btn_Edit_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Clients selectedClient = DGClients.SelectedItem as Clients;
+                if (selectedClient == null)
+                {
+                    MessageBox.Show("Выберите клиента для редактирования.", "Внимание");
+                    return;
+                }
 
+                int id = selectedClient.Id;
+                string firstname = selectedClient.FirstName;
+                string lastname = selectedClient.LastName;
+                DateTime dateofbirth = selectedClient.DateOfBirth;
+                string phone = selectedClient.Phone;
+
+                bool success = UpdateClient(id, firstname, lastname, dateofbirth, phone);
+                if (success)
+                {
+                    LoadClients();
+                    MessageBox.Show("Клиент успешно обновлен!");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при обновлении записи");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при обновлении записи: " + ex.Message);
+            }
+        }
+
+        private bool UpdateClient(int id, string firstname, string lastname, DateTime dateofbirth, string phone)
+        {
+            try
+            {
+                var selectedClient = clients.FirstOrDefault(item => item.Id == id);
+                if (selectedClient != null)
+                {
+                    selectedClient.FirstName = firstname;
+                    selectedClient.LastName = lastname;
+                    selectedClient.DateOfBirth = dateofbirth;
+                    selectedClient.Phone = phone;
+                }
+
+                database.OpenConnection();
+
+                string query = "UPDATE Clients SET FirstName = @firstname, LastName = @lastname, DateOfBirth = @dateofbirth, Phone = @phone WHERE Id = @id";
+
+                SqlCommand command = new SqlCommand(query, database.GetConnection());
+
+                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@firstname", firstname);
+                command.Parameters.AddWithValue("@lastname", lastname);
+                command.Parameters.AddWithValue("@dateofbirth", dateofbirth);
+                command.Parameters.AddWithValue("@phone", phone);
+
+                command.ExecuteNonQuery();
+
+                database.CloseConnection();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при редактировании записи: " + ex.Message);
+                return false;
+            }
         }
 
         private void Btn_Delete_Click(object sender, RoutedEventArgs e)
@@ -130,6 +196,16 @@ namespace HIcompany.Pages
         private void Btn_Exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Applications_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Policies_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

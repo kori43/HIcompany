@@ -17,10 +17,10 @@ namespace HIcompany
         {
             string username = TextBox_Login.Text;
             string userpassword = PasswordBox_Password.Password;
-            if(username == "")           
-                MessageBox.Show("Введите логин!");          
-            else if (userpassword == "")           
-                MessageBox.Show("Введите пароль!");         
+            if (username == "")
+                MessageBox.Show("Введите логин!");
+            else if (userpassword == "")
+                MessageBox.Show("Введите пароль!");
             else
             {
                 string query = "SELECT Id, Username, Role FROM Users WHERE Username = @Username AND Password = @Password";

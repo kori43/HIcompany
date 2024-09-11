@@ -14,7 +14,7 @@ namespace HIcompany.Pages
         }
 
         private void Btn_Create_Click(object sender, RoutedEventArgs e)
-        {         
+        {
             string firstName = TextBox_FirstName.Text;
             string lastName = TextBox_LastName.Text;
             string strphone = TextBox_Phone.Text;
@@ -23,9 +23,9 @@ namespace HIcompany.Pages
             if (long.TryParse(strphone, out phone))
                 phone = long.Parse(strphone);
             else
-                MessageBox.Show("Номер некорректен!");              
+                MessageBox.Show("Номер некорректен!");
             if (firstName == "" || lastName == "" || phone == 0 || strdate == "")
-                MessageBox.Show("Не удалось зарегистрировать клиента!");            
+                MessageBox.Show("Не удалось зарегистрировать клиента!");
             else
             {
                 if (CheckUser())
@@ -48,7 +48,7 @@ namespace HIcompany.Pages
                 {
                     MessageBox.Show("Ошибка: " + ex.Message);
                 }
-            }           
+            }
         }
 
         private void Btn_Clear_Click(object sender, RoutedEventArgs e)
