@@ -71,8 +71,8 @@ namespace HIcompany.Pages
 
         private void Btn_Back_Click(object sender, RoutedEventArgs e)
         {
-            Operator_Win operator_Win = new Operator_Win();
-            operator_Win.Show();
+            Applications_Win app_Win = new Applications_Win();
+            app_Win.Show();
             this.Close();
         }
     }

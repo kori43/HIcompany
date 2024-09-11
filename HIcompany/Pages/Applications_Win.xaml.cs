@@ -64,17 +64,21 @@ namespace HIcompany.Pages
 
         private void Clients_Click(object sender, RoutedEventArgs e)
         {
-
+            Operator_Win operator_Win = new Operator_Win();
+            operator_Win.Show();
+            this.Close();
         }
 
         private void Policies_Click(object sender, RoutedEventArgs e)
         {
-
+            Policies_Win policies = new Policies_Win();
+            policies.Show();
+            this.Close();
         }
 
-        private void Btn_Edit_Click(object sender, RoutedEventArgs e)
+        private void Btn_Edit_Status_Click(object sender, RoutedEventArgs e)
         {
-
+            // to do изменение статуса
         }
 
         private void Btn_Registration_Click(object sender, RoutedEventArgs e)

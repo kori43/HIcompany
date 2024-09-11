@@ -201,7 +201,9 @@ namespace HIcompany.Pages
 
         private void Policies_Click(object sender, RoutedEventArgs e)
         {
-            // to do создать окно полисов
+            Policies_Win policies = new Policies_Win();
+            policies.Show();
+            this.Close();
         }
     }
 }
