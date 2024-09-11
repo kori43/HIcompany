@@ -79,7 +79,9 @@ namespace HIcompany.Pages
 
         private void Btn_Registration_Click(object sender, RoutedEventArgs e)
         {
-
+            Create_App_Win create_App_Win = new Create_App_Win();
+            create_App_Win.Show();
+            this.Close();
         }
     }
 }
