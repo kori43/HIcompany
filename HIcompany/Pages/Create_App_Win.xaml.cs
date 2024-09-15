@@ -1,6 +1,6 @@
-﻿using System.Windows;
+﻿using HIcompany.db;
 using System.Data.SqlClient;
-using HIcompany.db;
+using System.Windows;
 
 namespace HIcompany.Pages
 {
@@ -30,36 +30,49 @@ namespace HIcompany.Pages
 
             int ClientId = 0;
             long ClaimAmount = 0;
-            if (int.TryParse(clientId, out ClientId))
-                ClientId = int.Parse(clientId);
-            else
-                MessageBox.Show("Идентификатор некорректен!");
-            if (long.TryParse(claimAmount, out ClaimAmount))
-                ClaimAmount = long.Parse(claimAmount);
-            else
-                MessageBox.Show("Цена некорректная!");
-            if (ClientId == 0 || type == "" || ClaimAmount == 0)
-                MessageBox.Show("Не удалось зарегистрировать клиента!");
-            else
+
+            if (!int.TryParse(clientId, out ClientId))
             {
-                try
-                {
-                    string query = $"INSERT INTO Claims(ClientId, Type, ClaimDate, ClaimAmount, ClaimStatus) VALUES ('{ClientId}', '{type}', '{claimDate}', '{ClaimAmount}', '{status}')";
-                    SqlCommand command = new SqlCommand(query, database.GetConnection());
-                    database.OpenConnection();
-
-                    if (command.ExecuteNonQuery() == 1)
-                        MessageBox.Show("Успешно!");
-                    else
-                        MessageBox.Show("Не удалось создать заявку!");
-
-                    database.CloseConnection();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Ошибка: " + ex.Message);
-                }
+                MessageBox.Show("Идентификатор некорректен!");
+                return;
             }
+            if (!long.TryParse(claimAmount, out ClaimAmount))
+            {
+                MessageBox.Show("Цена некорректная!");
+                return;
+            }
+            if (ClientId == 0 || type == "" || ClaimAmount == 0)
+            {
+                MessageBox.Show("Не удалось зарегистрировать клиента!");
+                return;
+            }
+
+            try
+            {
+                string query = $"INSERT INTO Claims(ClientId, Type, ClaimDate, ClaimAmount, ClaimStatus) VALUES " +
+                    $"(@ClientId, @Type, @ClaimDate, @ClaimAmount, @Status)";
+                SqlCommand command = new SqlCommand(query, database.GetConnection());
+
+                command.Parameters.AddWithValue("@ClientId", ClientId);
+                command.Parameters.AddWithValue("@Type", type);
+                command.Parameters.AddWithValue("@ClaimDate", claimDate);
+                command.Parameters.AddWithValue("@ClaimAmount", ClaimAmount);
+                command.Parameters.AddWithValue("@Status", status);
+
+                database.OpenConnection();
+
+                if (command.ExecuteNonQuery() == 1)
+                    MessageBox.Show("Успешно!");
+                else
+                    MessageBox.Show("Не удалось создать заявку!");
+
+                database.CloseConnection();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка: " + ex.Message);
+            }
+
         }
 
         private void Btn_Clear_Click(object sender, RoutedEventArgs e)
