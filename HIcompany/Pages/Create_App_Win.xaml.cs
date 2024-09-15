@@ -64,13 +64,15 @@ namespace HIcompany.Pages
                 if (command.ExecuteNonQuery() == 1)
                     MessageBox.Show("Успешно!");
                 else
-                    MessageBox.Show("Не удалось создать заявку!");
-
-                database.CloseConnection();
+                    MessageBox.Show("Не удалось создать заявку!");               
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Ошибка: " + ex.Message);
+            }
+            finally
+            {
+                database.CloseConnection();
             }
 
         }
