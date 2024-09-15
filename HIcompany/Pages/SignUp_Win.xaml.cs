@@ -33,20 +33,26 @@ namespace HIcompany.Pages
                 try
                 {
                     DateTime date = Convert.ToDateTime(strdate);
-                    string query = $"INSERT INTO Clients(FirstName, LastName, DateOfBirth, Phone) VALUES ('{firstName}', '{lastName}', '{date}', '{phone}')";
+                    string query = $"INSERT INTO Clients(FirstName, LastName, DateOfBirth, Phone) VALUES (@FirstName, @LastName, @Date, @Phone)";
                     SqlCommand command = new SqlCommand(query, database.GetConnection());
+                    command.Parameters.AddWithValue("@FirstName", firstName);
+                    command.Parameters.AddWithValue("@LastName", lastName);
+                    command.Parameters.AddWithValue("@Date", date);
+                    command.Parameters.AddWithValue("@Phone", phone);
                     database.OpenConnection();
 
                     if (command.ExecuteNonQuery() == 1)
                         MessageBox.Show("Успешно!");
                     else
                         MessageBox.Show("Не удалось зарегистрировать клиента!");
-
-                    database.CloseConnection();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Ошибка: " + ex.Message);
+                }
+                finally
+                {
+                    database.CloseConnection();
                 }
             }
         }
