@@ -41,7 +41,6 @@ namespace HIcompany
 
                     try
                     {
-                        database.OpenConnection();
                         switch (Role)
                         {
                             case 1:
@@ -62,6 +61,10 @@ namespace HIcompany
                     catch (Exception ex)
                     {
                         MessageBox.Show("Ошибка авторизации: " + ex.Message);
+                    }
+                    finally
+                    {
+                        database.CloseConnection();
                     }
                 }
                 else
