@@ -45,11 +45,14 @@ namespace HIcompany.Pages
                     };
                     clients.Add(client);
                 }
-                database.CloseConnection();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Ошибка при загрузке клиентов: " + ex.Message);
+            }
+            finally
+            {
+                database.CloseConnection();
             }
         }
 
@@ -121,13 +124,16 @@ namespace HIcompany.Pages
 
                 command.ExecuteNonQuery();
 
-                database.CloseConnection();
                 return true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Ошибка при редактировании записи: " + ex.Message);
                 return false;
+            }
+            finally
+            {
+                database.CloseConnection();
             }
         }
 
@@ -176,7 +182,6 @@ namespace HIcompany.Pages
                 command.Parameters.AddWithValue("@id", Id);
                 command.ExecuteNonQuery();
 
-                database.CloseConnection();
                 return true;
 
             }
@@ -184,6 +189,10 @@ namespace HIcompany.Pages
             {
                 MessageBox.Show("Ошибка при удалении записи: " + ex.Message);
                 return false;
+            }
+            finally
+            {
+                database.CloseConnection();
             }
         }
 

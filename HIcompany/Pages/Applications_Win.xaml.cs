@@ -53,12 +53,15 @@ namespace HIcompany.Pages
                         ClaimStatus = reader["ClaimStatus"].ToString()
                     };
                     claims.Add(claim);
-                }
-                database.CloseConnection();
+                }             
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Ошибка при загрузке заявок: " + ex.Message);
+            }
+            finally
+            {
+                database.CloseConnection();
             }
         }
 
