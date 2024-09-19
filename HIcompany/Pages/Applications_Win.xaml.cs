@@ -10,9 +10,9 @@ namespace HIcompany.Pages
     {
         enum ApplicationStatus : ushort
         {
-            waiting = 0,
-            accept = 1,
-            cancel = 2,
+            Waiting,
+            Accept,
+            Cancel
         }
 
         Database database = new Database();
@@ -103,15 +103,21 @@ namespace HIcompany.Pages
                     return;
                 }
 
+                if (selectedClaim.ClaimStatus != ApplicationStatus.Waiting.ToString())
+                {
+                    MessageBox.Show("Заявка уже обработана.");
+                    return;
+                }
+
                 string query = "UPDATE Claims SET ClaimStatus = @Status WHERE Id = @ClaimId AND ClaimStatus = @CurrentStatus";
 
                 database.OpenConnection();
 
                 SqlCommand command = new SqlCommand(query, database.GetConnection());
 
-                command.Parameters.AddWithValue("@Status", ApplicationStatus.cancel.ToString());
+                command.Parameters.AddWithValue("@Status", ApplicationStatus.Cancel.ToString());
                 command.Parameters.AddWithValue("@ClaimId", selectedClaim.Id);
-                command.Parameters.AddWithValue("@CurrentStatus", ApplicationStatus.waiting.ToString());
+                command.Parameters.AddWithValue("@CurrentStatus", ApplicationStatus.Waiting.ToString());
 
                 command.ExecuteNonQuery();
 
@@ -128,7 +134,5 @@ namespace HIcompany.Pages
                 database.CloseConnection();
             }
         }
-
-
     }
 }
