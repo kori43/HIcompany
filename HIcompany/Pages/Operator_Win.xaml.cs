@@ -26,7 +26,9 @@ namespace HIcompany.Pages
             try
             {
                 clients.Clear();
+
                 database.OpenConnection();
+
                 string query = "SELECT * FROM Clients";
 
                 SqlCommand command = new SqlCommand(query, database.GetConnection());
@@ -110,8 +112,6 @@ namespace HIcompany.Pages
                     selectedClient.Phone = phone;
                 }
 
-                database.OpenConnection();
-
                 string query = "UPDATE Clients SET FirstName = @firstname, LastName = @lastname, DateOfBirth = @dateofbirth, Phone = @phone WHERE Id = @id";
 
                 SqlCommand command = new SqlCommand(query, database.GetConnection());
@@ -121,6 +121,8 @@ namespace HIcompany.Pages
                 command.Parameters.AddWithValue("@lastname", lastname);
                 command.Parameters.AddWithValue("@dateofbirth", dateofbirth);
                 command.Parameters.AddWithValue("@phone", phone);
+
+                database.OpenConnection();
 
                 command.ExecuteNonQuery();
 
@@ -173,13 +175,14 @@ namespace HIcompany.Pages
 
                 clients.Remove(selectedcClient);
 
-                database.OpenConnection();
-
                 string query = "DELETE FROM Clients WHERE id = @id";
 
                 SqlCommand command = new SqlCommand(query, database.GetConnection());
 
                 command.Parameters.AddWithValue("@id", Id);
+
+                database.OpenConnection();
+
                 command.ExecuteNonQuery();
 
                 return true;

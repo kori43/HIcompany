@@ -79,16 +79,56 @@ namespace HIcompany.Pages
             this.Close();
         }
 
-        private void Btn_Edit_Status_Click(object sender, RoutedEventArgs e)
-        {
-            // to do изменение статуса
-        }
-
         private void Btn_Registration_Click(object sender, RoutedEventArgs e)
         {
             Create_App_Win create_App_Win = new Create_App_Win();
             create_App_Win.Show();
             this.Close();
         }
+
+        private void Btn_Accept_Status_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_Cancel_Status_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Claims selectedClaim = DGClaims.SelectedItem as Claims;
+
+                if (selectedClaim == null)
+                {
+                    MessageBox.Show("Выберите заявку для отклонения.", "Внимание");
+                    return;
+                }
+
+                string query = "UPDATE Claims SET ClaimStatus = @Status WHERE Id = @ClaimId AND ClaimStatus = @CurrentStatus";
+
+                database.OpenConnection();
+
+                SqlCommand command = new SqlCommand(query, database.GetConnection());
+
+                command.Parameters.AddWithValue("@Status", ApplicationStatus.cancel.ToString());
+                command.Parameters.AddWithValue("@ClaimId", selectedClaim.Id);
+                command.Parameters.AddWithValue("@CurrentStatus", ApplicationStatus.waiting.ToString());
+
+                command.ExecuteNonQuery();
+
+                MessageBox.Show("Заявка успешно отклонена!");
+
+                LoadClaims();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Ошибка при отклонении заявки: " + ex.Message);
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
+        }
+
+
     }
 }
