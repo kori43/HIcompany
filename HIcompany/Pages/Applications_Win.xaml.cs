@@ -88,7 +88,67 @@ namespace HIcompany.Pages
 
         private void Btn_Accept_Status_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Claims selectedClaim = DGClaims.SelectedItem as Claims;
 
+                if (selectedClaim == null)
+                {
+                    MessageBox.Show("Выберите заявку для принятия.", "Внимание");
+                    return;
+                }
+
+                if (selectedClaim.ClaimStatus != ApplicationStatus.Waiting.ToString())
+                {
+                    MessageBox.Show("Заявка уже обработана.");
+                    return;
+                }
+
+                DateTime startDate = DateTime.Now;
+                DateTime endDate = startDate.AddYears(1);
+                database.OpenConnection();
+                SqlTransaction transaction = database.GetConnection().BeginTransaction();
+                {
+                    try
+                    {
+                        string claimQuery = "UPDATE Claims SET ClaimStatus = @Status WHERE Id = @ClaimId AND ClaimStatus = @CurrentStatus";                        
+                        SqlCommand claimCommand = new SqlCommand(claimQuery, database.GetConnection(), transaction);
+                        claimCommand.Parameters.AddWithValue("@Status", ApplicationStatus.Accept.ToString());
+                        claimCommand.Parameters.AddWithValue("@ClaimId", selectedClaim.Id);
+                        claimCommand.Parameters.AddWithValue("@CurrentStatus", ApplicationStatus.Waiting.ToString());
+                        claimCommand.ExecuteNonQuery();                       
+
+                        string policyQuery = "INSERT INTO Policies (ClientId, Type, Status, StartDate, EndDate) " +
+                            "VALUES (@ClientId, @Type, @Status, @StartDate, @EndDate)";
+                        SqlCommand policyCommand = new SqlCommand(policyQuery, database.GetConnection(), transaction);
+                        policyCommand.Parameters.AddWithValue("@ClientId", selectedClaim.ClientId);
+                        policyCommand.Parameters.AddWithValue("@Type", selectedClaim.Type);
+                        policyCommand.Parameters.AddWithValue("@Status", "Accept");
+                        policyCommand.Parameters.AddWithValue("@StartDate", startDate);
+                        policyCommand.Parameters.AddWithValue("@EndDate", endDate);
+                        policyCommand.ExecuteNonQuery();
+
+                        transaction.Commit();
+
+                        MessageBox.Show("Заявка успешно принята, полис создан!");
+
+                        LoadClaims();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("Ошибка при обработке заявки: " + ex.Message);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при принятии заявки: " + ex.Message);
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
         }
 
         private void Btn_Cancel_Status_Click(object sender, RoutedEventArgs e)
