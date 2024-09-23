@@ -26,7 +26,7 @@
             <Button x:Name="Btn_Cancel_Status" Content="Отклонить" Height="35" Margin="10" Click="Btn_Cancel_Status_Click"/>
         </StackPanel>
 
-        <DataGrid x:Name="DGClaims" Grid.Row="1" Grid.Column="1" Margin="10" AutoGenerateColumns="True" SelectionMode="Single" CanUserAddRows="False"/>
+        <DataGrid x:Name="DGClaims" Grid.Row="1" Grid.Column="1" Margin="10" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" CanUserAddRows="False"/>
 
         <Menu Height="30" VerticalAlignment="Top" Margin="5">
             <MenuItem Header="Навигация" Height="30" Width="120" FontFamily="Arial" FontWeight="Bold">

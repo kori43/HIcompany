@@ -20,7 +20,7 @@
             <TextBlock Text="Полисы" HorizontalAlignment="Center" Margin="0,5,0,0"/>
         </StackPanel>
 
-        <DataGrid x:Name="DGPolicies" Grid.Row="1" Grid.Column="1" Margin="10" AutoGenerateColumns="True" SelectionMode="Single" CanUserAddRows="False"/>
+        <DataGrid x:Name="DGPolicies" Grid.Row="1" Grid.Column="1" Margin="10" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" CanUserAddRows="False"/>
 
         <StackPanel Grid.Row="1">
             <Button x:Name="Btn_Update" Content="Обновить" Height="35" Margin="10" Click="Btn_Update_Click"/>

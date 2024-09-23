@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HIcompany.Pages"
         mc:Ignorable="d"
-        Title="Admin_Win" Height="450" Width="800">
+        Title="Панель администратора" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="370*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Margin="5" Background="#679ED2" Grid.ColumnSpan="2">
+            <TextBlock Text="Панель администратора" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <Button x:Name="Btn_Registration" Content="Регистрация" Height="35" Margin="10" Click="Btn_Registration_Click"/>
+            <Button x:Name="Btn_Delete" Content="Удалить" Height="35" Margin="10" Click="Btn_Delete_Click"/>
+            <Button x:Name="Btn_Exit" Content="Выход" Height="35" Margin="10" Click="Btn_Exit_Click"/>
+        </StackPanel>
+
+        <DataGrid x:Name="DGUsers" Grid.Row="1" Grid.Column="1" Margin="10" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" CanUserAddRows="False"/>
     </Grid>
 </Window>
