@@ -6,11 +6,12 @@ namespace HIcompany.Pages
 {
     public partial class Create_App_Win : Window
     {
-        enum ApplicationStatus
+        enum ApplicationStatus : ushort
         {
             Waiting,
-            Confirmed,
-            Canceled,
+            Accept,
+            Cancel,
+            Expired
         }
 
         Database database = new Database();

@@ -12,7 +12,8 @@ namespace HIcompany.Pages
         {
             Waiting,
             Accept,
-            Cancel
+            Cancel,
+            Expired
         }
 
         Database database = new Database();
