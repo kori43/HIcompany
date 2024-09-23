@@ -59,12 +59,69 @@ namespace HIcompany.Pages
 
         private void Btn_Registration_Click(object sender, RoutedEventArgs e)
         {
-
+            Create_User_Win create_User_Win = new Create_User_Win();
+            create_User_Win.Show();
+            this.Close();
         }
 
         private void Btn_Delete_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Users selectedUser = DGUsers.SelectedItem as Users;
+                if (selectedUser == null)
+                {
+                    MessageBox.Show("Выберите пользователя для удаления.", "Внимание");
+                    return;
+                }
+                int id = selectedUser.Id;
+                bool success = DeleteUser(id);
+                if (success)
+                {
+                    LoadUsers();
+                    MessageBox.Show("Пользователь успешно удален!");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при удалении записи");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при удалении записи: " + ex.Message);
+            }
+        }
 
+        private bool DeleteUser(int Id)
+        {
+            try
+            {
+                var selectedUser = users.FirstOrDefault(item => item.Id == Id);
+
+                users.Remove(selectedUser);
+
+                string query = "DELETE FROM Users WHERE id = @id";
+
+                SqlCommand command = new SqlCommand(query, database.GetConnection());
+
+                command.Parameters.AddWithValue("@id", Id);
+
+                database.OpenConnection();
+
+                command.ExecuteNonQuery();
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при удалении записи: " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                database.CloseConnection();
+            }
         }
 
         private void Btn_Exit_Click(object sender, RoutedEventArgs e)

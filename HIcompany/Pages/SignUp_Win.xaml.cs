@@ -24,7 +24,7 @@ namespace HIcompany.Pages
             {
                 MessageBox.Show("Номер некорректен!");
                 return;
-            }   
+            }
             if (firstName == "" || lastName == "" || phone == 0 || strdate == "")
                 MessageBox.Show("Не удалось зарегистрировать клиента!");
             else
@@ -35,7 +35,7 @@ namespace HIcompany.Pages
                 {
                     DateTime date = Convert.ToDateTime(strdate);
                     string query = $"INSERT INTO Clients(FirstName, LastName, DateOfBirth, Phone) VALUES (@FirstName, @LastName, @Date, @Phone)";
-                    
+
                     SqlCommand command = new SqlCommand(query, database.GetConnection());
 
                     command.Parameters.AddWithValue("@FirstName", firstName);

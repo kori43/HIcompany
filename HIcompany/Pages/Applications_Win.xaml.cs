@@ -54,7 +54,7 @@ namespace HIcompany.Pages
                         ClaimStatus = reader["ClaimStatus"].ToString()
                     };
                     claims.Add(claim);
-                }             
+                }
             }
             catch (Exception ex)
             {
@@ -112,12 +112,12 @@ namespace HIcompany.Pages
                 {
                     try
                     {
-                        string claimQuery = "UPDATE Claims SET ClaimStatus = @Status WHERE Id = @ClaimId AND ClaimStatus = @CurrentStatus";                        
+                        string claimQuery = "UPDATE Claims SET ClaimStatus = @Status WHERE Id = @ClaimId AND ClaimStatus = @CurrentStatus";
                         SqlCommand claimCommand = new SqlCommand(claimQuery, database.GetConnection(), transaction);
                         claimCommand.Parameters.AddWithValue("@Status", ApplicationStatus.Accept.ToString());
                         claimCommand.Parameters.AddWithValue("@ClaimId", selectedClaim.Id);
                         claimCommand.Parameters.AddWithValue("@CurrentStatus", ApplicationStatus.Waiting.ToString());
-                        claimCommand.ExecuteNonQuery();                       
+                        claimCommand.ExecuteNonQuery();
 
                         string policyQuery = "INSERT INTO Policies (ClientId, Type, Status, StartDate, EndDate) " +
                             "VALUES (@ClientId, @Type, @Status, @StartDate, @EndDate)";
@@ -186,7 +186,7 @@ namespace HIcompany.Pages
 
                 LoadClaims();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Ошибка при отклонении заявки: " + ex.Message);
             }

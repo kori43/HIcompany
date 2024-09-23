@@ -1,8 +1,8 @@
-﻿using System.Windows;
-using System.Data.SqlClient;
-using HIcompany.Classes;
+﻿using HIcompany.Classes;
 using HIcompany.db;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
+using System.Windows;
 
 namespace HIcompany.Pages
 {

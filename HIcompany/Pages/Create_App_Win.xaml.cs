@@ -65,7 +65,7 @@ namespace HIcompany.Pages
                 if (command.ExecuteNonQuery() == 1)
                     MessageBox.Show("Успешно!");
                 else
-                    MessageBox.Show("Не удалось создать заявку!");               
+                    MessageBox.Show("Не удалось создать заявку!");
             }
             catch (Exception ex)
             {
@@ -75,7 +75,6 @@ namespace HIcompany.Pages
             {
                 database.CloseConnection();
             }
-
         }
 
         private void Btn_Clear_Click(object sender, RoutedEventArgs e)
